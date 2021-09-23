@@ -36,7 +36,7 @@
                         <th class="p-4 text-left w-2/12">Aksi</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody-mahasiswa">
                         @forelse ($mahasiswas as $mahasiswa)
                         <tr>
                             <td class="p-4 text-left">{{ $loop->iteration }}</td>

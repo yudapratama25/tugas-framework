@@ -40,6 +40,32 @@
         </div>
 
         @stack('modals')
+        <script src="https://js.pusher.com/7.0.3/pusher.min.js"></script>
+        <script src="https://18a0-125-160-113-63.ngrok.io/assets/js/push.min.js"></script>
+        
+        <script>
+            var pusher = new Pusher("146f3be07f94ee991506", {
+                cluster: "ap1",
+                encrypted: true
+            });
+
+            // Subscribe to the channel we specified in our Laravel Event
+            var channel = pusher.subscribe('manipulation-data');
+
+            // Bind a function to a Event (the full Laravel class)
+            channel.bind('App\\Events\\DataManipulation', function(data) {
+                
+                const tableMahasiswa = document.getElementById('tbody-mahasiswa');
+                if (tableMahasiswa) {
+                    tableMahasiswa.innerHTML = data.data_mahasiswa;
+                }
+
+                Push.create("Tugas Framework", {
+                    body: data.message,
+                    timeout: 9000,
+                });
+            });
+        </script>
         @stack('javascript')
 
         @livewireScripts
